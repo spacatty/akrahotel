@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="13870d470cf246109d8bc8fda44b9b6d" Name="Diagram1">
+        <EntityTypeShape EntityType="AkraHotelModel.Bill" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AkraHotelModel.BillCompany" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AkraHotelModel.BillGuest" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AkraHotelModel.BillService" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AkraHotelModel.Company" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AkraHotelModel.Complain" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AkraHotelModel.Contract" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AkraHotelModel.Employee" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AkraHotelModel.Guest" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AkraHotelModel.Hotel" Width="1.5" PointX="3.75" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AkraHotelModel.Room" Width="1.5" PointX="6" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AkraHotelModel.RoomBill" Width="1.5" PointX="8.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AkraHotelModel.Service" Width="1.5" PointX="3" PointY="21" IsExpanded="true" />
+        <AssociationConnector Association="AkraHotelModel.FK_Bill_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="AkraHotelModel.FK_BillCompany_Bill" ManuallyRouted="false" />
+        <AssociationConnector Association="AkraHotelModel.FK_BillGuest_Bill" ManuallyRouted="false" />
+        <AssociationConnector Association="AkraHotelModel.FK_BillService_Bill" ManuallyRouted="false" />
+        <AssociationConnector Association="AkraHotelModel.FK_RoomBill_Bill" ManuallyRouted="false" />
+        <AssociationConnector Association="AkraHotelModel.FK_BillCompany_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="AkraHotelModel.FK_BillGuest_Guest" ManuallyRouted="false" />
+        <AssociationConnector Association="AkraHotelModel.FK_BillService_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="AkraHotelModel.FK_Contract_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="AkraHotelModel.FK_Table_1_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="AkraHotelModel.FK_Table_1_Guest" ManuallyRouted="false" />
+        <AssociationConnector Association="AkraHotelModel.FK_Contract_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="AkraHotelModel.FK_Room_Hotel" ManuallyRouted="false" />
+        <AssociationConnector Association="AkraHotelModel.FK_RoomBill_Room" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

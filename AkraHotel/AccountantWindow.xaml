@@ -1,0 +1,195 @@
+﻿<Window x:Class="AkraHotel.AccountantWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AkraHotel"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="AccountantWindow" Height="768" Width="1024" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl Margin="8">
+
+            <TabItem Header="Услуги">
+                <TabItem.Content>
+                    <StackPanel VerticalAlignment="Center">
+                        <Grid Height="650">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Добавление услуг" Margin="8" FontSize="16"/>
+                                <TextBox x:Name="newServiceAmount" Padding="4" Margin="8" Text="Стоимость (текст)"/>
+                                <TextBox x:Name="newServiceType" Padding="4" Margin="8" Text="Тип (текст)"/>
+                                <Button x:Name="SubmitServiceButton" Padding="4" Margin="8" Content="Добавить" Click="SubmitServiceButton_Click"/>
+                                <Button x:Name="logoutButton" Click="logoutButton_Click" Padding="4" Margin="64" Content="Выйти из учетной записи"/>
+                            </StackPanel>
+                            <DataGrid Grid.Column="1" x:FieldModifier="public" x:Name="serviceDataGrid" AutoGenerateColumns="False" ColumnWidth="*" CellEditEnding="serviceDataGrid_CellEditEnding">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="#" Width="24" Binding="{Binding id}"/>
+                                    <DataGridTextColumn Header="Тип" Binding="{Binding Type}"/>
+                                    <DataGridTextColumn  Header="Стоимость" Binding="{Binding Amount}"/>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="Действие"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.HeaderTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button Margin="2" x:Name="deleteServiceDataRow" Click="deleteServiceDataRow_Click">
+                                                        <Image Height="32" Width="32" Source="https://cdn-icons-png.flaticon.com/512/3405/3405244.png"/>
+                                                    </Button>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+
+            <TabItem Header="Счета">
+                <TabItem.Content>
+                    <StackPanel VerticalAlignment="Center">
+                        <Grid Height="650">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Добавление счета" Margin="8" FontSize="16"/>
+                                <TextBox x:Name="newBillStatus" Padding="4" Margin="8" Text="Статус (текст)"/>
+                                <TextBox x:Name="newBillAmount" Padding="4" Margin="8" Text="Сумма (текст)"/>
+                                <ComboBox x:Name="newBillEmployee" Padding="4" Margin="8" IsEditable="True" IsReadOnly="True" Text="-- Сотрудник --"/>
+                                <DatePicker x:Name="newBillDate" Margin="8" Padding="4"/>
+                                <Button x:Name="SubmitBillButton" Padding="4" Margin="8" Content="Добавить" Click="SubmitBillButton_Click"/>
+                                <Button Click="logoutButton_Click" Padding="4" Margin="64" Content="Выйти из учетной записи"/>
+                            </StackPanel>
+                            <DataGrid Grid.Column="1" x:FieldModifier="public" x:Name="billDataGrid" AutoGenerateColumns="False" ColumnWidth="*" CellEditEnding="billDataGrid_CellEditEnding">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="#" Width="24" Binding="{Binding id}"/>
+                                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}"/>
+                                    <DataGridTextColumn Header="Сумма" Binding="{Binding Amount}"/>
+                                    <DataGridTextColumn Header="Сотрудник" Binding="{Binding Employee}"/>
+                                    <DataGridTextColumn Header="Дата" Binding="{Binding Date}"/>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.HeaderTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="Действие"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.HeaderTemplate>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button Margin="2" x:Name="deleteBillDataRow" Click="deleteBillDataRow_Click">
+                                                        <Image Height="32" Width="32" Source="https://cdn-icons-png.flaticon.com/512/3405/3405244.png"/>
+                                                    </Button>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+
+            <TabItem Header="Счет-Гость">
+                <TabItem.Content>
+                    <StackPanel VerticalAlignment="Center">
+                        <Grid Height="650">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Добавление Счет-Гость" Margin="8" FontSize="16"/>
+                                <ComboBox x:Name="newBillGuestGuest" Padding="4" Margin="8" IsEditable="True" IsReadOnly="True" Text="-- Гость --"/>
+                                <ComboBox x:Name="newBillGuestBill" Padding="4" Margin="8" IsEditable="True" IsReadOnly="True" Text="-- Счет --"/>
+                                <Button x:Name="submitBillGuest" Padding="4" Margin="8" Content="Добавить" Click="submitBillGuest_Click"/>
+                                <Button Padding="4" Margin="64" Content="Выйти из учетной записи"/>
+                            </StackPanel>
+                            <DataGrid IsReadOnly="True" Grid.Column="1" x:FieldModifier="public" x:Name="billGuestDataGrid" AutoGenerateColumns="False" ColumnWidth="*">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="#" Width="24" Binding="{Binding id}"/>
+                                    <DataGridTextColumn Header="Счет" Binding="{Binding Bill}"/>
+                                    <DataGridTextColumn Header="Гость" Binding="{Binding Guest}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </StackPanel>
+                </TabItem.Content>
+
+            </TabItem>
+
+            <TabItem Header="Счет-Фирма">
+                <TabItem.Content>
+                    <StackPanel VerticalAlignment="Center">
+                        <Grid Height="650">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Добавление Счет-Гость" Margin="8" FontSize="16"/>
+                                <ComboBox x:Name="newBillCompanyCompany" Padding="4" Margin="8" IsEditable="True" IsReadOnly="True" Text="-- Фирма --"/>
+                                <ComboBox x:Name="newBillCompanyBill" Padding="4" Margin="8" IsEditable="True" IsReadOnly="True" Text="-- Счет --"/>
+                                <Button x:Name="submitBillCompany" Padding="4" Margin="8" Content="Добавить" Click="submitBillCompany_Click"/>
+                                <Button Padding="4" Margin="64" Content="Выйти из учетной записи"/>
+                            </StackPanel>
+                            <DataGrid IsReadOnly="True" Grid.Column="1" x:FieldModifier="public" x:Name="billCompanyDataGrid" AutoGenerateColumns="False" ColumnWidth="*">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="#" Width="24" Binding="{Binding id}"/>
+                                    <DataGridTextColumn Header="Счет" Binding="{Binding Bill}"/>
+                                    <DataGridTextColumn Header="Фирма" Binding="{Binding Company}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </StackPanel>
+                </TabItem.Content>
+
+            </TabItem>
+
+            <TabItem Header="Счет-Номер">
+                <TabItem.Content>
+                    <StackPanel VerticalAlignment="Center">
+                        <Grid Height="650">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Добавление Счет-Гость" Margin="8" FontSize="16"/>
+                                <ComboBox x:Name="newBillRoomRoom" Padding="4" Margin="8" IsEditable="True" IsReadOnly="True" Text="-- Номер --"/>
+                                <ComboBox x:Name="newBillRoomBill" Padding="4" Margin="8" IsEditable="True" IsReadOnly="True" Text="-- Счет --"/>
+                                <Button x:Name="submitBillRoom" Padding="4" Margin="8" Content="Добавить" Click="submitBillRoom_Click"/>
+                                <Button Padding="4" Margin="64" Content="Выйти из учетной записи"/>
+                            </StackPanel>
+                            <DataGrid IsReadOnly="True" Grid.Column="1" x:FieldModifier="public" x:Name="billRoomDataGrid" AutoGenerateColumns="False" ColumnWidth="*">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="#" Width="24" Binding="{Binding id}"/>
+                                    <DataGridTextColumn Header="Счет" Binding="{Binding Bill}"/>
+                                    <DataGridTextColumn Header="Номер" Binding="{Binding Room}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </StackPanel>
+                </TabItem.Content>
+
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</Window>

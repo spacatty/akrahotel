@@ -1,0 +1,936 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище AkraHotelModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="Employee" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="varchar" MaxLength="50" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BillCompany">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Company" Type="int" />
+          <Property Name="Bill" Type="int" />
+        </EntityType>
+        <EntityType Name="BillGuest">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bill" Type="int" Nullable="false" />
+          <Property Name="Guest" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BillService">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bill" Type="int" Nullable="false" />
+          <Property Name="Service" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Director" Type="varchar" MaxLength="50" />
+          <Property Name="Details" Type="varchar" MaxLength="50" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Complain">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="varchar(max)" />
+          <Property Name="Guest" Type="int" />
+          <Property Name="Employee" Type="int" />
+        </EntityType>
+        <EntityType Name="Contract">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
+          <Property Name="Employee" Type="int" />
+          <Property Name="Company" Type="int" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Discount" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Post" Type="varchar" MaxLength="50" />
+          <Property Name="Login" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Salary" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Guest">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Passport" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Hotel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Stars" Type="int" />
+          <Property Name="Rooms" Type="int" />
+          <Property Name="AvailableServices" Type="varchar" MaxLength="50" />
+          <Property Name="Catering" Type="varchar" MaxLength="50" />
+          <Property Name="Entertainments" Type="varchar" MaxLength="50" />
+          <Property Name="RoomsOnFloors" Type="varchar" MaxLength="50" />
+          <Property Name="Floors" Type="int" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Class" Type="varchar" MaxLength="50" />
+          <Property Name="Capacity" Type="int" />
+          <Property Name="Floor" Type="int" />
+          <Property Name="Rooms" Type="int" />
+          <Property Name="Price" Type="varchar" MaxLength="50" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="BuildingRoom" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoomBill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Room" Type="int" Nullable="false" />
+          <Property Name="Bill" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Amount" Type="varchar" MaxLength="50" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Bill_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="Employee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillCompany_Bill">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="0..1" />
+          <End Role="BillCompany" Type="Self.BillCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BillCompany">
+              <PropertyRef Name="Bill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillCompany_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="BillCompany" Type="Self.BillCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BillCompany">
+              <PropertyRef Name="Company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillGuest_Bill">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="BillGuest" Type="Self.BillGuest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BillGuest">
+              <PropertyRef Name="Bill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillGuest_Guest">
+          <End Role="Guest" Type="Self.Guest" Multiplicity="1" />
+          <End Role="BillGuest" Type="Self.BillGuest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Guest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BillGuest">
+              <PropertyRef Name="Guest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillService_Bill">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="BillService" Type="Self.BillService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BillService">
+              <PropertyRef Name="Bill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillService_Service">
+          <End Role="Service" Type="Self.Service" Multiplicity="1" />
+          <End Role="BillService" Type="Self.BillService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BillService">
+              <PropertyRef Name="Service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Contract" Type="Self.Contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Contract">
+              <PropertyRef Name="Company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Contract" Type="Self.Contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Contract">
+              <PropertyRef Name="Employee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_Hotel">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="BuildingRoom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomBill_Bill">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="RoomBill" Type="Self.RoomBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RoomBill">
+              <PropertyRef Name="Bill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomBill_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="RoomBill" Type="Self.RoomBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RoomBill">
+              <PropertyRef Name="Room" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_1_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Complain" Type="Self.Complain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Complain">
+              <PropertyRef Name="Employee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_1_Guest">
+          <End Role="Guest" Type="Self.Guest" Multiplicity="0..1" />
+          <End Role="Complain" Type="Self.Complain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Guest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Complain">
+              <PropertyRef Name="Guest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище AkraHotelModelContainer">
+          <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BillCompany" EntityType="Self.BillCompany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BillGuest" EntityType="Self.BillGuest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BillService" EntityType="Self.BillService" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Complain" EntityType="Self.Complain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contract" EntityType="Self.Contract" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Guest" EntityType="Self.Guest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoomBill" EntityType="Self.RoomBill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Bill_Employee" Association="Self.FK_Bill_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillCompany_Bill" Association="Self.FK_BillCompany_Bill">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="BillCompany" EntitySet="BillCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillCompany_Company" Association="Self.FK_BillCompany_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="BillCompany" EntitySet="BillCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillGuest_Bill" Association="Self.FK_BillGuest_Bill">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="BillGuest" EntitySet="BillGuest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillGuest_Guest" Association="Self.FK_BillGuest_Guest">
+            <End Role="Guest" EntitySet="Guest" />
+            <End Role="BillGuest" EntitySet="BillGuest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillService_Bill" Association="Self.FK_BillService_Bill">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="BillService" EntitySet="BillService" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillService_Service" Association="Self.FK_BillService_Service">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="BillService" EntitySet="BillService" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_Company" Association="Self.FK_Contract_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Contract" EntitySet="Contract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_Employee" Association="Self.FK_Contract_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Contract" EntitySet="Contract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_Hotel" Association="Self.FK_Room_Hotel">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomBill_Bill" Association="Self.FK_RoomBill_Bill">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="RoomBill" EntitySet="RoomBill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomBill_Room" Association="Self.FK_RoomBill_Room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="RoomBill" EntitySet="RoomBill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_1_Employee" Association="Self.FK_Table_1_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Complain" EntitySet="Complain" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_1_Guest" Association="Self.FK_Table_1_Guest">
+            <End Role="Guest" EntitySet="Guest" />
+            <End Role="Complain" EntitySet="Complain" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AkraHotelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Employee" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Employee1" Relationship="Self.FK_Bill_Employee" FromRole="Bill" ToRole="Employee" />
+          <NavigationProperty Name="BillCompanies" Relationship="Self.FK_BillCompany_Bill" FromRole="Bill" ToRole="BillCompany" />
+          <NavigationProperty Name="BillGuests" Relationship="Self.FK_BillGuest_Bill" FromRole="Bill" ToRole="BillGuest" />
+          <NavigationProperty Name="BillServices" Relationship="Self.FK_BillService_Bill" FromRole="Bill" ToRole="BillService" />
+          <NavigationProperty Name="RoomBills" Relationship="Self.FK_RoomBill_Bill" FromRole="Bill" ToRole="RoomBill" />
+        </EntityType>
+        <EntityType Name="BillCompany">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Company" Type="Int32" />
+          <Property Name="Bill" Type="Int32" />
+          <NavigationProperty Name="Bill1" Relationship="Self.FK_BillCompany_Bill" FromRole="BillCompany" ToRole="Bill" />
+          <NavigationProperty Name="Company1" Relationship="Self.FK_BillCompany_Company" FromRole="BillCompany" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="BillGuest">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bill" Type="Int32" Nullable="false" />
+          <Property Name="Guest" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bill1" Relationship="Self.FK_BillGuest_Bill" FromRole="BillGuest" ToRole="Bill" />
+          <NavigationProperty Name="Guest1" Relationship="Self.FK_BillGuest_Guest" FromRole="BillGuest" ToRole="Guest" />
+        </EntityType>
+        <EntityType Name="BillService">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bill" Type="Int32" Nullable="false" />
+          <Property Name="Service" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bill1" Relationship="Self.FK_BillService_Bill" FromRole="BillService" ToRole="Bill" />
+          <NavigationProperty Name="Service1" Relationship="Self.FK_BillService_Service" FromRole="BillService" ToRole="Service" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Director" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Details" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BillCompanies" Relationship="Self.FK_BillCompany_Company" FromRole="Company" ToRole="BillCompany" />
+          <NavigationProperty Name="Contracts" Relationship="Self.FK_Contract_Company" FromRole="Company" ToRole="Contract" />
+        </EntityType>
+        <EntityType Name="Complain">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Guest" Type="Int32" />
+          <Property Name="Employee" Type="Int32" />
+          <NavigationProperty Name="Employee1" Relationship="Self.FK_Table_1_Employee" FromRole="Complain" ToRole="Employee" />
+          <NavigationProperty Name="Guest1" Relationship="Self.FK_Table_1_Guest" FromRole="Complain" ToRole="Guest" />
+        </EntityType>
+        <EntityType Name="Contract">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Employee" Type="Int32" />
+          <Property Name="Company" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Discount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Company1" Relationship="Self.FK_Contract_Company" FromRole="Contract" ToRole="Company" />
+          <NavigationProperty Name="Employee1" Relationship="Self.FK_Contract_Employee" FromRole="Contract" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Post" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Salary" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_Employee" FromRole="Employee" ToRole="Bill" />
+          <NavigationProperty Name="Complains" Relationship="Self.FK_Table_1_Employee" FromRole="Employee" ToRole="Complain" />
+          <NavigationProperty Name="Contracts" Relationship="Self.FK_Contract_Employee" FromRole="Employee" ToRole="Contract" />
+        </EntityType>
+        <EntityType Name="Guest">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Passport" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BillGuests" Relationship="Self.FK_BillGuest_Guest" FromRole="Guest" ToRole="BillGuest" />
+          <NavigationProperty Name="Complains" Relationship="Self.FK_Table_1_Guest" FromRole="Guest" ToRole="Complain" />
+        </EntityType>
+        <EntityType Name="Hotel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Stars" Type="Int32" />
+          <Property Name="Rooms" Type="Int32" />
+          <Property Name="AvailableServices" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Catering" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Entertainments" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RoomsOnFloors" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Floors" Type="Int32" />
+          <NavigationProperty Name="Rooms1" Relationship="Self.FK_Room_Hotel" FromRole="Hotel" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Class" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Capacity" Type="Int32" />
+          <Property Name="Floor" Type="Int32" />
+          <Property Name="Rooms" Type="Int32" />
+          <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BuildingRoom" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Hotel" Relationship="Self.FK_Room_Hotel" FromRole="Room" ToRole="Hotel" />
+          <NavigationProperty Name="RoomBills" Relationship="Self.FK_RoomBill_Room" FromRole="Room" ToRole="RoomBill" />
+        </EntityType>
+        <EntityType Name="RoomBill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Room" Type="Int32" Nullable="false" />
+          <Property Name="Bill" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bill1" Relationship="Self.FK_RoomBill_Bill" FromRole="RoomBill" ToRole="Bill" />
+          <NavigationProperty Name="Room1" Relationship="Self.FK_RoomBill_Room" FromRole="RoomBill" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BillServices" Relationship="Self.FK_BillService_Service" FromRole="Service" ToRole="BillService" />
+        </EntityType>
+        <Association Name="FK_Bill_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="Employee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillCompany_Bill">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="0..1" />
+          <End Role="BillCompany" Type="Self.BillCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BillCompany">
+              <PropertyRef Name="Bill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillGuest_Bill">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="BillGuest" Type="Self.BillGuest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BillGuest">
+              <PropertyRef Name="Bill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillService_Bill">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="BillService" Type="Self.BillService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BillService">
+              <PropertyRef Name="Bill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomBill_Bill">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="RoomBill" Type="Self.RoomBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RoomBill">
+              <PropertyRef Name="Bill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillCompany_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="BillCompany" Type="Self.BillCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BillCompany">
+              <PropertyRef Name="Company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillGuest_Guest">
+          <End Role="Guest" Type="Self.Guest" Multiplicity="1" />
+          <End Role="BillGuest" Type="Self.BillGuest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Guest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BillGuest">
+              <PropertyRef Name="Guest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillService_Service">
+          <End Role="Service" Type="Self.Service" Multiplicity="1" />
+          <End Role="BillService" Type="Self.BillService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BillService">
+              <PropertyRef Name="Service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Contract" Type="Self.Contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Contract">
+              <PropertyRef Name="Company" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_1_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Complain" Type="Self.Complain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Complain">
+              <PropertyRef Name="Employee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_1_Guest">
+          <End Role="Guest" Type="Self.Guest" Multiplicity="0..1" />
+          <End Role="Complain" Type="Self.Complain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Guest">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Complain">
+              <PropertyRef Name="Guest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Contract" Type="Self.Contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Contract">
+              <PropertyRef Name="Employee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_Hotel">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="BuildingRoom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoomBill_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="1" />
+          <End Role="RoomBill" Type="Self.RoomBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RoomBill">
+              <PropertyRef Name="Room" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AkraHotelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bills" EntityType="Self.Bill" />
+          <EntitySet Name="BillCompanies" EntityType="Self.BillCompany" />
+          <EntitySet Name="BillGuests" EntityType="Self.BillGuest" />
+          <EntitySet Name="BillServices" EntityType="Self.BillService" />
+          <EntitySet Name="Companies" EntityType="Self.Company" />
+          <EntitySet Name="Complains" EntityType="Self.Complain" />
+          <EntitySet Name="Contracts" EntityType="Self.Contract" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Guests" EntityType="Self.Guest" />
+          <EntitySet Name="Hotels" EntityType="Self.Hotel" />
+          <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <EntitySet Name="RoomBills" EntityType="Self.RoomBill" />
+          <EntitySet Name="Services" EntityType="Self.Service" />
+          <AssociationSet Name="FK_Bill_Employee" Association="Self.FK_Bill_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillCompany_Bill" Association="Self.FK_BillCompany_Bill">
+            <End Role="Bill" EntitySet="Bills" />
+            <End Role="BillCompany" EntitySet="BillCompanies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillGuest_Bill" Association="Self.FK_BillGuest_Bill">
+            <End Role="Bill" EntitySet="Bills" />
+            <End Role="BillGuest" EntitySet="BillGuests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillService_Bill" Association="Self.FK_BillService_Bill">
+            <End Role="Bill" EntitySet="Bills" />
+            <End Role="BillService" EntitySet="BillServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomBill_Bill" Association="Self.FK_RoomBill_Bill">
+            <End Role="Bill" EntitySet="Bills" />
+            <End Role="RoomBill" EntitySet="RoomBills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillCompany_Company" Association="Self.FK_BillCompany_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="BillCompany" EntitySet="BillCompanies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillGuest_Guest" Association="Self.FK_BillGuest_Guest">
+            <End Role="Guest" EntitySet="Guests" />
+            <End Role="BillGuest" EntitySet="BillGuests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillService_Service" Association="Self.FK_BillService_Service">
+            <End Role="Service" EntitySet="Services" />
+            <End Role="BillService" EntitySet="BillServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_Company" Association="Self.FK_Contract_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Contract" EntitySet="Contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_1_Employee" Association="Self.FK_Table_1_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Complain" EntitySet="Complains" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_1_Guest" Association="Self.FK_Table_1_Guest">
+            <End Role="Guest" EntitySet="Guests" />
+            <End Role="Complain" EntitySet="Complains" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_Employee" Association="Self.FK_Contract_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Contract" EntitySet="Contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_Hotel" Association="Self.FK_Room_Hotel">
+            <End Role="Hotel" EntitySet="Hotels" />
+            <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoomBill_Room" Association="Self.FK_RoomBill_Room">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="RoomBill" EntitySet="RoomBills" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище AkraHotelModelContainer" CdmEntityContainer="AkraHotelEntities">
+          <EntitySetMapping Name="Bills">
+            <EntityTypeMapping TypeName="AkraHotelModel.Bill">
+              <MappingFragment StoreEntitySet="Bill">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BillCompanies">
+            <EntityTypeMapping TypeName="AkraHotelModel.BillCompany">
+              <MappingFragment StoreEntitySet="BillCompany">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Bill" ColumnName="Bill" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BillGuests">
+            <EntityTypeMapping TypeName="AkraHotelModel.BillGuest">
+              <MappingFragment StoreEntitySet="BillGuest">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Bill" ColumnName="Bill" />
+                <ScalarProperty Name="Guest" ColumnName="Guest" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BillServices">
+            <EntityTypeMapping TypeName="AkraHotelModel.BillService">
+              <MappingFragment StoreEntitySet="BillService">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Bill" ColumnName="Bill" />
+                <ScalarProperty Name="Service" ColumnName="Service" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="AkraHotelModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Director" ColumnName="Director" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Complains">
+            <EntityTypeMapping TypeName="AkraHotelModel.Complain">
+              <MappingFragment StoreEntitySet="Complain">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Guest" ColumnName="Guest" />
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contracts">
+            <EntityTypeMapping TypeName="AkraHotelModel.Contract">
+              <MappingFragment StoreEntitySet="Contract">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="AkraHotelModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Guests">
+            <EntityTypeMapping TypeName="AkraHotelModel.Guest">
+              <MappingFragment StoreEntitySet="Guest">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hotels">
+            <EntityTypeMapping TypeName="AkraHotelModel.Hotel">
+              <MappingFragment StoreEntitySet="Hotel">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Stars" ColumnName="Stars" />
+                <ScalarProperty Name="Rooms" ColumnName="Rooms" />
+                <ScalarProperty Name="AvailableServices" ColumnName="AvailableServices" />
+                <ScalarProperty Name="Catering" ColumnName="Catering" />
+                <ScalarProperty Name="Entertainments" ColumnName="Entertainments" />
+                <ScalarProperty Name="RoomsOnFloors" ColumnName="RoomsOnFloors" />
+                <ScalarProperty Name="Floors" ColumnName="Floors" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="AkraHotelModel.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="Floor" ColumnName="Floor" />
+                <ScalarProperty Name="Rooms" ColumnName="Rooms" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="BuildingRoom" ColumnName="BuildingRoom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoomBills">
+            <EntityTypeMapping TypeName="AkraHotelModel.RoomBill">
+              <MappingFragment StoreEntitySet="RoomBill">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+                <ScalarProperty Name="Bill" ColumnName="Bill" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="AkraHotelModel.Service">
+              <MappingFragment StoreEntitySet="Service">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,56 @@
+﻿<Window x:Class="AkraHotel.BookingManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AkraHotel"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="BookingManagerWindow" Height="550" Width="900" Closing="Window_Closing">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <TextBlock Text="Добавление номера" Margin="8" FontSize="16"/>
+            <TextBox x:Name="newRoomCapacity" Padding="4" Margin="8" Text="Вместительность (число)"/>
+            <TextBox x:Name="newRoomFloor" Padding="4" Margin="8" Text="Этаж (число)"/>
+            <TextBox x:Name="newRoomRooms" Padding="4" Margin="8" Text="Комнаты (число)"/>
+            <ComboBox x:Name="newRoomBuilding" Padding="4" Margin="8" IsEditable="True" IsReadOnly="True" Text="-- Корпус --"/>
+            <TextBox x:Name="newRoomPrice" Padding="4" Margin="8" Text="Стоимость (текст)"/>
+            <TextBox x:Name="newRoomStatus" Padding="4" Margin="8" Text="Статус (текст)"/>
+            <TextBox x:Name="newRoomClass" Padding="4" Margin="8" Text="Класс (текст)"/>
+            <Button x:Name="SubmitRoomButton" Padding="4" Margin="8" Content="Добавить" Click="SubmitRoomButton_Click"/>
+            <Button Padding="4" Margin="64" Content="Выйти из учетной записи" Click="logoutButton_Click"/>
+        </StackPanel>
+        <DataGrid Grid.Column="1" x:FieldModifier="public" x:Name="roomsDataGrid" AutoGenerateColumns="False" ColumnWidth="*" CellEditEnding="roomsDataGrid_CellEditEnding">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="#" Width="24" Binding="{Binding id}"/>
+                <DataGridTextColumn Header="Класс" Binding="{Binding Class}"/>
+                <DataGridTextColumn Header="Вместимость" Binding="{Binding Capacity}"/>
+                <DataGridTextColumn Header="Этаж" Binding="{Binding Floor}"/>
+                <DataGridTextColumn Header="Комнаты" Binding="{Binding Rooms}"/>
+                <DataGridTextColumn Header="Стоимость" Binding="{Binding Price}"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}"/>
+                <DataGridTextColumn Header="Корпус" Binding="{Binding BuildingRoom}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Действие"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Margin="2" x:Name="deleteRoomsDataRow" Click="deleteRoomsDataRow_Click">
+                                    <Image Height="32" Width="32" Source="https://cdn-icons-png.flaticon.com/512/3405/3405244.png"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
